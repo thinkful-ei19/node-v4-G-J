@@ -55,12 +55,13 @@ function createShoppingList() {
 
 const Recipes = {
   create: function(name, ingredients) {
-    console.log('Creating a new recipe');
+    
     const item = {
       name: name,
       id: uuid.v4(),
       ingredients: ingredients
     };
+    console.log('Creating a new recipe', item.id);
     this.items[item.id] = item;
     return item;
   },
@@ -73,13 +74,16 @@ const Recipes = {
     delete this.items[itemId];
   },
   update: function(updatedItem) {
+    
     console.log(`Updating recipe with id \`${updatedItem.id}\``);
     const {id} = updatedItem;
     if (!(id in this.items)) {
+      console.log(updatedItem);
       throw StorageException(
         `Can't update item \`${id}\` because doesn't exist.`)
     }
     this.items[updatedItem.id] = updatedItem;
+    
     return updatedItem;
   }
 };
